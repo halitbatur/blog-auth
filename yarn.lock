@@ -567,6 +567,11 @@ etag@~1.8.1:
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
 
+express-partials@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/express-partials/-/express-partials-0.3.0.tgz#88b9c40164afd9a55278629b2948e6ace7bff45f"
+  integrity sha1-iLnEAWSv2aVSeGKbKUjmrOe/9F8=
+
 express@^4.17.1:
   version "4.17.1"
   resolved "https://registry.yarnpkg.com/express/-/express-4.17.1.tgz#4491fc38605cf51f8629d39c2b5d026f98a4c134"

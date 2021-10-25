@@ -1,4 +1,5 @@
 const express = require("express");
+const partials = require("express-partials");
 const mongoose = require("mongoose");
 const path = require("path");
 const Article = require("./models/article");
@@ -9,11 +10,17 @@ const app = express();
 
 mongoose.connect(DB_URI).catch((err) => console.log(err));
 
+app.use(partials());
+app.use(express.static(path.join(__dirname, "public")));
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
-
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
 app.get("/", async (req, res) => {
   const articles = await Article.find().sort({ createdAt: "desc" });
   res.render("articles/index", { articles: articles });
