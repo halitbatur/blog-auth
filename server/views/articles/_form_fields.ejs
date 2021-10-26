@@ -1,14 +1,16 @@
 <div class="form-group">
   <label for="title">Title</label>
-  <input required value="<%= article.title %>" type="text" name="title" id="title" class="form-control">
+  <input required value="<%= article.title %>" type="text" name="title" id="title" class="form-control" />
 </div>
 <div class="form-group">
-  <label for="description">Description</label>
-  <textarea name="description" id="description" class="form-control"><%= article.description %></textarea>
+  <label for="snippet">Snippet</label>
+  <textarea name="snippet" id="snippet" class="form-control" style="min-height: 60px">
+<%= article.snippet %></textarea>
 </div>
 <div class="form-group">
   <label for="markdown">Markdown</label>
-  <textarea required name="markdown" id="markdown" class="form-control"><%= article.markdown %></textarea>
+  <textarea required name="markdown" id="markdown" class="form-control" style="min-height: 350px">
+<%= article.markdown %></textarea>
 </div>
 
 <a href="/" class="btn btn-secondary">Cancel</a>
