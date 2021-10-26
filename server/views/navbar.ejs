@@ -14,38 +14,27 @@
             <a class="nav-link" href="/signin">Sign in</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link btn btn-primary" href="/signup">Sign up</a>
+            <a class="nav-link btn btn-primary text-white" href="/signup">Sign up</a>
           </li>
-          <% } else {%>
+          <% } else { %>
           <li class="nav-item">
             <a class="nav-link" href="/write">New article</a>
           </li>
           <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              data-bs-toggle="dropdown"
-              href="#"
-              role="button"
-              aria-expanded="false"
-            >
-              <img
-                class="rounded-circle img-fluid mx-2"
-                style="height: 2.5rem"
-                src="<%= user.avatar %>"
-              /><b><%= user.name %></b>
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+              <img src="<%= user.avatar %>" class="rounded-circle img-fluid mx-2" style="height: 2.5rem" />
+              <b><%= user.name %></b>
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a
-                  class="dropdown-item"
-                  href="/articles?authorId=<%= user.id %> "
-                  >My articles</a
-                >
+                <a class="dropdown-item" href="/articles?authorId=<%= user.id %> ">My articles</a>
               </li>
               <li>
                 <a class="dropdown-item" href="/profile/edit">Edit profile</a>
               </li>
-              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
               <li><a class="dropdown-item" href="/signout">Sign out</a></li>
             </ul>
           </li>
@@ -58,14 +47,8 @@
             <div class="input-group-text" id="btnGroupAddon">
               <i class="bi-search"></i>
             </div>
-            <input
-              type="search"
-              class="form-control form-control-sm"
-              placeholder="Search blog"
-              name="query"
-              aria-label="Search Blog"
-              aria-describedby="btnGroupAddon"
-            />
+            <input type="search" class="form-control form-control-sm" placeholder="Search blog" name="query"
+              aria-label="Search Blog" aria-describedby="btnGroupAddon" />
           </div>
         </form>
       </div>
