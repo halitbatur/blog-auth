@@ -3,15 +3,16 @@ module.exports = {
     browser: true,
     commonjs: true,
     es2021: true,
+    node: true,
   },
-  extends: ["google"],
+  extends: ['eslint:recommended'],
   parserOptions: {
-    ecmaVersion: 13,
+    ecmaVersion: 2017,
   },
   rules: {
-    "no-var": "error",
-    "prefer-template": "warn",
-    radix: "warn",
-    "no-console": "warn",
+    'no-var': 'error',
+    'prefer-template': 'warn',
+    radix: 'warn',
+    'no-console': 'off',
   },
 };

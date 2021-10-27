@@ -21,8 +21,7 @@
     "slugify": "^1.6.1"
   },
   "devDependencies": {
-    "eslint": "^8.1.0",
-    "eslint-config-google": "^0.14.0",
+    "eslint": "7.32.0",
     "nodemon": "^2.0.14",
     "prettier": "^2.4.1"
   }

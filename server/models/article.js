@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
-const marked = require("marked");
-const slugify = require("slugify");
-const createDomPurify = require("dompurify");
-const { JSDOM } = require("jsdom");
+const mongoose = require('mongoose');
+const marked = require('marked');
+const slugify = require('slugify');
+const createDomPurify = require('dompurify');
+const { JSDOM } = require('jsdom');
 const dompurify = createDomPurify(new JSDOM().window);
 
 const articleSchema = new mongoose.Schema({
@@ -36,7 +36,7 @@ const articleSchema = new mongoose.Schema({
   },
 });
 
-articleSchema.pre("validate", function (next) {
+articleSchema.pre('validate', function (next) {
   if (this.title) {
     this.slug = slugify(this.title, { lower: true, strict: true });
   }
@@ -47,7 +47,7 @@ articleSchema.pre("validate", function (next) {
 
   if (!this.snippet) {
     const dom = new JSDOM().window;
-    const el = dom.createElement("div");
+    const el = dom.createElement('div');
     el.innerHTML = this.sanitizedHtml;
     this.snippet = el.textContent;
   }
@@ -55,4 +55,4 @@ articleSchema.pre("validate", function (next) {
   next();
 });
 
-module.exports = mongoose.model("Article", articleSchema);
+module.exports = mongoose.model('Article', articleSchema);
