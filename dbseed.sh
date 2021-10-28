@@ -1,0 +1,1 @@
+mongorestore --db myblog --gzip --archive=dbseed.gz -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD  --authenticationMechanism SCRAM-SHA-256 --authenticationDatabase admin
