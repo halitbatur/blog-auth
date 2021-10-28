@@ -23,11 +23,11 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
               <img src="<%= user.avatar %>" class="rounded-circle img-fluid mx-2" style="height: 2.5rem" />
-              <b><%= user.name %></b>
+              <b><%= user.firstname %></b>
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a class="dropdown-item" href="/articles?authorId=<%= user.id %> ">My articles</a>
+                <a class="dropdown-item" href="/articles?authorId=<%= user.username %> ">My articles</a>
               </li>
               <li>
                 <a class="dropdown-item" href="/profile/edit">Edit profile</a>
