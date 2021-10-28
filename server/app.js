@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const Article = require('./models/article');
 const articleRouter = require('./routes/articles');
+const authRouter = require('./routes/auth');
 const methodOverride = require('method-override');
 const { DB_URI } = require('./config');
 const app = express();
@@ -27,6 +28,7 @@ app.get('/', async (req, res) => {
 });
 
 app.use('/articles', articleRouter);
+app.use('/auth', authRouter);
 
 const PORT = process.env.SERVER_PORT || 8080;
 app.listen(PORT, () => {
