@@ -21,6 +21,7 @@ services:
     env_file: ./.env
     volumes:
       - ./server:/backend-app/server
+      - ./package.json:/backend-app/package.json
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
     environment:
@@ -30,6 +31,7 @@ services:
       - DB_NAME=$MONGODB_DATABASE
       - DB_PORT=27017
       - SERVER_PORT=$NODE_LOCAL_PORT
+      - IS_DOCKER=true
     stdin_open: true
     tty: true
     links:

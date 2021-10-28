@@ -6,7 +6,8 @@
   "author": "Wisam Naji <guitar90rocker@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server/app.js"
+    "start": "nodemon server/app.js",
+    "postinstall": "[ -z $IS_DOCKER ] && docker exec -w /backend-app $(docker ps -aqf name=node-app) npm i"
   },
   "dependencies": {
     "dompurify": "^2.3.3",
