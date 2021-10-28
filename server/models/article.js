@@ -1,9 +1,16 @@
 const mongoose = require('mongoose');
 const marked = require('marked');
 const slugify = require('slugify');
+const hljs = require('highlight.js');
 const createDomPurify = require('dompurify');
 const { JSDOM } = require('jsdom');
 const dompurify = createDomPurify(new JSDOM().window);
+
+marked.setOptions({
+  highlight: function (code, lang) {
+    return hljs.highlightAuto(code).value;
+  },
+});
 
 const articleSchema = new mongoose.Schema({
   title: {
@@ -13,9 +20,6 @@ const articleSchema = new mongoose.Schema({
   snippet: {
     type: String,
     required: true,
-  },
-  cover: {
-    type: String,
   },
   markdown: {
     type: String,
@@ -34,6 +38,11 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User',
+  },
 });
 
 articleSchema.pre('validate', function (next) {
@@ -46,13 +55,22 @@ articleSchema.pre('validate', function (next) {
   }
 
   if (!this.snippet) {
-    const dom = new JSDOM().window;
+    const dom = new JSDOM().window.document;
     const el = dom.createElement('div');
     el.innerHTML = this.sanitizedHtml;
-    this.snippet = el.textContent;
+    this.snippet = `${el.textContent.split('\n')[0].slice(0, 400)}...`;
   }
 
   next();
 });
+
+const autoPopulateAuthor = function (next) {
+  this.populate('author');
+  next();
+};
+
+articleSchema
+  .pre('findOne', autoPopulateAuthor)
+  .pre('find', autoPopulateAuthor);
 
 module.exports = mongoose.model('Article', articleSchema);
