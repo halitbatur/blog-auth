@@ -6,8 +6,9 @@
   "author": "Wisam Naji <guitar90rocker@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server/app.js",
-    "postinstall": "[ -z $IS_DOCKER ] && docker exec -w /backend-app $(docker ps -aqf name=node-app) npm i"
+    "start:app": "nodemon server/app.js",
+    "postinstall": "CONT=$(docker ps -aqf name=node-app) && [ $CONT ] && docker exec -w /backend-app $CONT npm i || true",
+    "start": "docker-compose up"
   },
   "dependencies": {
     "dompurify": "^2.3.3",

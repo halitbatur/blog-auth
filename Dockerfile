@@ -5,4 +5,4 @@ WORKDIR /backend-app
 COPY package.json .
 RUN npm install
 COPY ./server ./server
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "start:app" ]
