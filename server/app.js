@@ -1,6 +1,5 @@
 const express = require('express');
 const partials = require('express-partials');
-const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
 const path = require('path');
 const Article = require('./models/article');
@@ -8,10 +7,13 @@ const articleRouter = require('./routes/articles');
 const authRouter = require('./routes/auth');
 const avatarRouter = require('./routes/avatar');
 const methodOverride = require('method-override');
-const { DB_URI } = require('./config');
+const db = require('./db');
+
 const app = express();
 
-mongoose.connect(DB_URI).catch((err) => console.log(err));
+const isTest = process.env.isJest || process.env.NODE_ENV === 'test';
+
+db.connect().then((msg) => console.log(msg));
 
 // Set view engine and views dir
 app.set('view engine', 'ejs');
@@ -54,6 +56,9 @@ app.use(avatarRouter);
 
 // Serve
 const PORT = process.env.SERVER_PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
+!isTest &&
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}.`);
+  });
+
+module.exports = app;
