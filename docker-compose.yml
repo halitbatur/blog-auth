@@ -20,6 +20,7 @@ services:
     build: .
     env_file: ./.env
     volumes:
+      - avatars:/backend-app/__cache
       - ./server:/backend-app/server
       - ./package.json:/backend-app/package.json
     ports:
@@ -38,3 +39,4 @@ services:
       - mongodb
 volumes:
   db:
+  avatars:
