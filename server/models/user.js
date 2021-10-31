@@ -27,6 +27,11 @@ const userSchema = mongoose.Schema({
 });
 
 userSchema.virtual('fullname').get(function () {
+  if (!this.firstname) {
+    return this.username;
+  } else if (!this.lastname) {
+    return this.firstname;
+  }
   return `${this.firstname} ${this.lastname}`;
 });
 
