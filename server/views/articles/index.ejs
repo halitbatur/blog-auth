@@ -6,14 +6,17 @@
   <div class="card-body">
     <h4 class="card-title"><%= article.title %></h4>
     <div class="card-subtitle text-muted mb-2">
-      <%= article.createdAt.toLocaleDateString() %>
+      <%= article.author.fullname %> |
+      <%= article.createdAt.toDateString().split(' ').slice(1).join(' ') %>
     </div>
     <div class="card-text mb-2"><%= article.snippet %></div>
     <a href="articles/<%= article.slug %>" class="btn btn-primary">Read More</a>
+    <% if (user && user.id === article.author.id) { %>
     <a href="articles/edit/<%= article.id %>" class="btn btn-info">Edit</a>
     <form action="/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
       <button type="submit" class="btn btn-danger">Delete</button>
     </form>
+    <% } %>
   </div>
 </div>
 <% }) %>
