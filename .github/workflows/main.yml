@@ -31,7 +31,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Build containers
-        run: yarn build
+        run: docker-compose up --build -d
       
       - name: Run tests
         run: yarn test
