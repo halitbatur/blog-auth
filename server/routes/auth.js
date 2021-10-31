@@ -37,4 +37,8 @@ router.get('/signin', (req, res) => {
   res.render('user/signin');
 });
 
+router.get('/authenticated', (req, res) => {
+  res.render('user/authenticated');
+});
+
 module.exports = router;

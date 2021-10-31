@@ -17,6 +17,11 @@
 </head>
 
 <body>
+  <% if (locals.error) { %>
+  <div class="d-none" id="error-msg">
+    <%= error %>
+  </div>
+  <% } %>
   <div id="message-wrap" class="position-fixed bottom-0 end-0 p-3 pb-5 mb-5 me-5" style="z-index: 11;">
     <div class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true"
       data-bs-delay="3000">
@@ -37,6 +42,7 @@
 <script>
   let msgEl = document.querySelector('#message-wrap .toast')
   let msg = bootstrap.Toast.getOrCreateInstance(msgEl) // Returns a Bootstrap toast instance
+  let error = document.getElementById('error-msg')
 
   window.showMessage = (message, bg) => {
     let currentBg = ''
@@ -54,6 +60,10 @@
           <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>`
     msg.show()
+  }
+
+  if (error) {
+    showMessage(error.textContent, 'bg-danger')
   }
 </script>
 
