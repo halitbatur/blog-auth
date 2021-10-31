@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:16
 
 RUN mkdir -p /backend-app
 WORKDIR /backend-app
