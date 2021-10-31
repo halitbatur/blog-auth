@@ -49,7 +49,7 @@ Open the file `server/routes/auth.js` and implement the `POST /signup` handler f
 ### To correctly hash password
 
 - The user in database shouldn't have a plain text password
-- Use `10` as rounds parameter in `bcrypt`
+- Use bcrypt to hash passwords
 
 ### To handle used username
 

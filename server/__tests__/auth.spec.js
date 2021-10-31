@@ -106,8 +106,8 @@ describe('Signup tasks implemented', () => {
       .collection('users')
       .find({ username: newUser.username });
     expect(user).toBeDefined();
-    const hash = bcrypt.hash(newUser.password, 10);
-    expect(user.password_hash).toEqual(hash);
+    const valid = await bcrypt.compare(newUser.password, user.password_hash);
+    expect(valid).toBe(true);
   });
 
   test('handles used username', async () => {
