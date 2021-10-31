@@ -1,4 +1,6 @@
 const request = require('supertest');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const db = require('../db');
 
 afterEach(async () => await db.clearDatabase());
@@ -43,7 +45,7 @@ function objToUrlEncoded(obj) {
 }
 
 describe('Signin tasks implemented', () => {
-  test('responds to /user/signin', async () => {
+  test('responds to get /user/signin', async () => {
     const res = await request(app).get('/user/signin');
     expect(res.header['content-type']).toBe('text/html; charset=utf-8');
     expect(res.statusCode).toBe(200);
@@ -55,6 +57,7 @@ describe('Signin tasks implemented', () => {
       .send(objToUrlEncoded(correctUser));
     expect(res.statusCode).toBe(302);
     expect(res.header['location']).toBe('/user/authenticated');
+    expect(res.header['user']).toBe('6179ddb959261eb8c736c58d');
   });
 
   test('handles wrong username', async () => {
@@ -62,7 +65,7 @@ describe('Signin tasks implemented', () => {
       .post('/user/signin')
       .send(objToUrlEncoded(incorrectUser1));
     expect(res.header['location']).toBe(undefined);
-    expect(res.statusCode).toBe(401);
+    expect(res.statusCode).toBe(400);
     expect(res.text).toMatch(/wrong username or password/i);
   });
 
@@ -71,13 +74,13 @@ describe('Signin tasks implemented', () => {
       .post('/user/signin')
       .send(objToUrlEncoded(incorrectUser2));
     expect(res.header['location']).toBe(undefined);
-    expect(res.statusCode).toBe(401);
+    expect(res.statusCode).toBe(400);
     expect(res.text).toMatch(/wrong username or password/i);
   });
 });
 
 describe('Signup tasks implemented', () => {
-  test('responds to /user/signup', async () => {
+  test('responds to get /user/signup', async () => {
     const res = await request(app).get('/user/signup');
     expect(res.header['content-type']).toBe('text/html; charset=utf-8');
     expect(res.statusCode).toBe(200);
@@ -89,6 +92,22 @@ describe('Signup tasks implemented', () => {
       .send(objToUrlEncoded(newUser));
     expect(res.statusCode).toBe(302);
     expect(res.header['location']).toBe('/user/authenticated');
+
+    const user = await mongoose.connection
+      .collection('users')
+      .find({ username: newUser.username });
+    expect(user).toBeDefined();
+    expect(user.username).toEqual(newUser.username);
+  });
+
+  test('hashes password with bcrypt', async () => {
+    await request(app).post('/user/signup').send(objToUrlEncoded(newUser));
+    const user = await mongoose.connection
+      .collection('users')
+      .find({ username: newUser.username });
+    expect(user).toBeDefined();
+    const hash = bcrypt.hash(newUser.password, 10);
+    expect(user.password_hash).toEqual(hash);
   });
 
   test('handles used username', async () => {
@@ -98,7 +117,7 @@ describe('Signup tasks implemented', () => {
       .post('/user/signup')
       .send(objToUrlEncoded(newUserLocal));
     expect(res.header['location']).toBe(undefined);
-    expect(res.statusCode).toBe(401);
+    expect(res.statusCode).toBe(400);
     expect(res.text).toMatch(/username already used/i);
   });
 
@@ -109,7 +128,7 @@ describe('Signup tasks implemented', () => {
       .post('/user/signup')
       .send(objToUrlEncoded(newUserLocal));
     expect(res.header['location']).toBe(undefined);
-    expect(res.statusCode).toBe(401);
+    expect(res.statusCode).toBe(400);
     expect(res.text).toMatch(/passwords don't match/i);
   });
 });
