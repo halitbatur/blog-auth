@@ -7,6 +7,8 @@ const router = express.Router();
 router.post('/signin', (req, res) => {
   const { username, password, rememberMe } = req.body;
   // @TODO: Complete user sign in
+
+  res.end(); // this is only to exit tests, change on implementations
 });
 
 router.post('/signup', (req, res) => {
@@ -21,10 +23,14 @@ router.post('/signup', (req, res) => {
   } = req.body;
 
   // @TODO: Complete user sign up
+
+  res.end(); // this is only to exit tests, change on implementations
 });
 
 router.get('/signout', (req, res) => {
   // @TODO: Complete user sign out
+
+  res.end(); // this is only to exit tests, change on implementations
 });
 
 // renders sign up page
