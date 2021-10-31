@@ -95,7 +95,7 @@ describe('Signup tasks implemented', () => {
 
     const user = await mongoose.connection
       .collection('users')
-      .find({ username: newUser.username });
+      .findOne({ username: newUser.username });
     expect(user).toBeDefined();
     expect(user.username).toEqual(newUser.username);
   });
@@ -104,7 +104,7 @@ describe('Signup tasks implemented', () => {
     await request(app).post('/user/signup').send(objToUrlEncoded(newUser));
     const user = await mongoose.connection
       .collection('users')
-      .find({ username: newUser.username });
+      .findOne({ username: newUser.username });
     expect(user).toBeDefined();
     const valid = await bcrypt.compare(newUser.password, user.password_hash);
     expect(valid).toBe(true);
@@ -129,6 +129,6 @@ describe('Signup tasks implemented', () => {
       .send(objToUrlEncoded(newUserLocal));
     expect(res.header['location']).toBe(undefined);
     expect(res.statusCode).toBe(400);
-    expect(res.text).toMatch(/passwords don't match/i);
+    expect(res.text).toMatch(/passwords do not match/i);
   });
 });
