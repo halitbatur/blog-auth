@@ -71,7 +71,6 @@ router.post('/signup', async (req, res) => {
 router.get('/signout', (req, res) => {
   // @TODO: Complete user sign out
 
-  res.end(); // this is only to exit tests, change on implementations
 });
 
 // renders sign up page
