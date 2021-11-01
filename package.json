@@ -13,7 +13,7 @@
     "prune": "docker-compose down -v",
     "stop": "docker-compose down",
     "test": "CONT=$(docker ps -aqf name=node-app) && [ $CONT ] && docker exec -t -w /backend-app $CONT npm run test:app",
-    "test:app": "isJest=1 && node --experimental-vm-modules node_modules/.bin/jest --detectOpenHandles --noStackTrace"
+    "test:app": "isJest=1 && node --experimental-vm-modules node_modules/.bin/jest --noStackTrace --forceExit"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

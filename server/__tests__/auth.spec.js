@@ -2,7 +2,7 @@ const request = require('supertest');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const db = require('../db');
-
+jest.setTimeout(1500)
 afterEach(async () => await db.clearDatabase());
 afterAll(async () => await db.closeDatabase());
 
@@ -106,7 +106,7 @@ describe('Signup tasks implemented', () => {
       .collection('users')
       .findOne({ username: newUser.username });
     expect(user).toBeDefined();
-    const valid = await bcrypt.compare(newUser.password, user.password_hash);
+    const valid = user && await bcrypt.compare(newUser.password, user.password_hash);
     expect(valid).toBe(true);
   });
 
